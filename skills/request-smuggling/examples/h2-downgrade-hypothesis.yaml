@@ -1,0 +1,16 @@
+status: hypothesis_ready
+variant_hypothesis: H2.CL
+architecture_hypothesis: HTTP/2 is accepted at the edge and may downgrade to HTTP/1.1 upstream.
+parser_boundary: h2_length
+summary: The evidence supports an H2 downgrade surface, but not confirmed smuggling. The next step is protocol and origin-path evidence.
+required_evidence:
+  - ALPN showing HTTP/2 at the client edge
+  - evidence or hypothesis for HTTP/1.1 origin translation
+  - normal baseline over HTTP/1.1 and HTTP/2 where safe
+  - Host/:authority and Content-Length handling notes
+false_positive_controls:
+  - rule out end-to-end HTTP/2
+  - rule out tool display confusion
+  - rule out normal CDN or WAF rejection
+safe_next_step: Collect architecture inventory and compare ordinary HTTP versions; do not send malformed H2 downgrade probes automatically.
+manual_gate_required: true

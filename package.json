@@ -1,0 +1,11 @@
+{
+  "name": "public-specialist-skills",
+  "version": "0.1.0",
+  "description": "Public safety-first specialist skills for security agents and reviewers.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-all.js",
+    "validate:request-smuggling": "node skills/request-smuggling/scripts/validate.js"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": "public-specialist-skills/v1",
+  "repository": {
+    "title": "Public Specialist Skills",
+    "license": "MIT",
+    "safety_posture": "authorized defensive use only"
+  },
+  "skills": [
+    {
+      "id": "request_smuggling_desync_assessment",
+      "slug": "request-smuggling",
+      "title": "HTTP Request Smuggling / Desync Assessment Skill",
+      "category": "web_security",
+      "path": "skills/request-smuggling",
+      "version": "1.1.0",
+      "status": "public_ready",
+      "license": "MIT",
+      "topics": [
+        "http_request_smuggling",
+        "http_desync",
+        "parser_discrepancy",
+        "protocol_downgrade",
+        "manual_proof_contracts"
+      ],
+      "safety": {
+        "authorized_testing_only": true,
+        "no_automatic_malformed_framing": true,
+        "no_victim_traffic": true,
+        "manual_gate_required_for_active_validation": true
+      }
+    }
+  ]
+}

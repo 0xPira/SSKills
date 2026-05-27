@@ -1,0 +1,26 @@
+# Mitigations and Hardening
+
+- Prefer HTTP/2 or HTTP/3 end-to-end, including upstream/origin links; avoid downgrade to HTTP/1.1 where possible.
+- If HTTP/1.1 is unavoidable, reject ambiguous framing at the first hop and close the connection on parse errors.
+- Reject requests with both Content-Length and Transfer-Encoding unless a standards-compliant dechunk-and-close policy is guaranteed.
+- Treat dechunking as a security boundary: synthesize a clean Content-Length or close before forwarding.
+- Reject nonessential chunk extensions, ambiguous chunk terminators, trailer newline ambiguity, and trailer promotion to security-sensitive headers.
+- Reject duplicate, empty, signed, non-decimal, overflowed or comma-ambiguous Content-Length values.
+- Reject or strictly normalize obsolete line folding, bare CR, invalid whitespace before headers and non-ASCII parser ambiguities.
+- Strip hop-by-hop headers named by Connection before forwarding, but never let Connection nominate framing/security headers in unsafe ways.
+- Validate HTTP/2 pseudo-headers: exactly one required pseudo-header, pseudo-headers before regular fields, no invalid Host/:authority mismatch.
+- For HTTP/2 downgrades, synthesize a clean HTTP/1.1 request from semantic fields and reject any field that cannot be represented safely.
+- Close upstream connections after any invalid, incomplete, timed-out, rejected Upgrade, h2c, opportunistic TLS, or rejected CONNECT request where ambiguity remains.
+- Disable TRACE on externally reachable paths unless a documented diagnostic need exists, and never let reflected headers expose proxy-added secrets.
+- For HTTP/3, isolate authority routing per request/stream and test connection coalescing against sibling-domain routing assumptions.
+- Disable legacy parser leniency such as Envoy allow_chunked_length or Node insecureHTTPParser unless a compensating first-hop normalizer exists.
+- Align request body buffering, streaming and timeout policies across front-end and origin.
+- Use strict cache keys and do not cache responses generated after invalid or ambiguous request parsing.
+- Log the normalized request form, parser error class, connection close decision and upstream protocol at each hop.
+- Patch CDN/proxy/server families for known request smuggling CVEs and validate config after upgrades.
+- For ALB, review desync mitigation mode and invalid header dropping; use stricter modes for high-risk origins.
+- For Pingora, use fixed versions and strict RFC-compliant parsing defaults for ingress deployments.
+- For Apache, avoid unsafe RewriteRule/ProxyPassMatch substitutions and patch mod_proxy/http2 vulnerabilities.
+- For HAProxy, patch parser CVEs and keep default strict handling for duplicate CL and TE+CL.
+- For Envoy/Istio, enable header validator and avoid invalid HTTP messaging overrides.
+- For app frameworks, do not rely on the proxy to sanitize; server code must reject impossible body/framing combinations too.

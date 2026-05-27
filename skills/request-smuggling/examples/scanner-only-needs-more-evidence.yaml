@@ -1,0 +1,16 @@
+status: needs_more_evidence
+variant_hypothesis: unknown
+architecture_hypothesis: unknown
+parser_boundary: unknown
+summary: Scanner output mentions CL.TE, but no raw wire form, protocol path, front-end/back-end boundary, or queue behavior is present.
+required_evidence:
+  - raw request and response metadata
+  - HTTP version and ALPN evidence
+  - front-end and back-end architecture hypothesis
+  - normal GET/HEAD baseline with status, headers, hash, and timing bucket
+false_positive_controls:
+  - rule out scanner-only label
+  - rule out ordinary WAF or proxy rejection
+  - rule out client-side display normalization
+safe_next_step: Collect passive architecture and baseline evidence only.
+manual_gate_required: true

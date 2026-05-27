@@ -1,0 +1,16 @@
+status: needs_specialized_review
+variant_hypothesis: cache_chain
+architecture_hypothesis: Desync-like behavior may affect shared cache behavior.
+parser_boundary: unknown
+summary: The primary impact hypothesis is cache poisoning, so cache-key evidence and cache isolation dominate the proof plan.
+required_evidence:
+  - cache layer identity
+  - cache key hypothesis
+  - HIT/MISS/Age or equivalent metadata
+  - unguessable disposable cache key and purge/expiry plan
+false_positive_controls:
+  - rule out normal Vary, localization, auth, and browser cache behavior
+  - rule out backend pool variance
+  - rule out private or no-store response behavior
+safe_next_step: Route to web-cache review and require isolated cache proof contract before active validation.
+manual_gate_required: true
