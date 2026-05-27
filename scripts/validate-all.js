@@ -43,7 +43,7 @@ if (index) {
     ids.add(skill.id);
     slugs.add(skill.slug);
 
-    for (const rel of ['skill.json', 'README.md', 'sources.json', 'scripts/validate.js']) {
+    for (const rel of ['skill.json', 'README.md', 'router.md', 'safety.md', 'output-schema.json', 'sources.json', 'scripts/validate.js']) {
       if (!exists(path.join(skill.path, rel))) fail.push(`missing ${rel} for ${skill.slug}`);
     }
 
@@ -55,6 +55,12 @@ if (index) {
         if (skillJson.version !== skill.version) fail.push(`skill version mismatch for ${skill.slug}`);
         if (!skillJson.safety_posture?.authorized_testing_only) {
           fail.push(`skill missing authorized_testing_only safety posture: ${skill.slug}`);
+        }
+        if (!skillJson.retrieval_guidance?.avoid_loading_all_technique_cards) {
+          fail.push(`skill missing lightweight retrieval guidance: ${skill.slug}`);
+        }
+        if (!Array.isArray(skillJson.technique_cards) || skillJson.technique_cards.length === 0) {
+          fail.push(`skill missing technique_cards index: ${skill.slug}`);
         }
       }
     }

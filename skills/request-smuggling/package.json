@@ -1,9 +1,0 @@
-{
-  "name": "request-smuggling-desync-assessment-skill",
-  "version": "1.1.0",
-  "license": "MIT",
-  "type": "module",
-  "scripts": {
-    "validate": "node scripts/validate.js"
-  }
-}

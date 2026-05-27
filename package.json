@@ -1,7 +1,7 @@
 {
-  "name": "public-specialist-skills",
+  "name": "sskills",
   "version": "0.1.0",
-  "description": "Public safety-first specialist skills for security agents and reviewers.",
+  "description": "Slop Skills: public safety-first specialist knowledge for security agents and reviewers.",
   "license": "MIT",
   "type": "module",
   "scripts": {
